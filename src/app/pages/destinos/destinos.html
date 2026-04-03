@@ -1,20 +1,55 @@
-<h2>🌄 Destinos Turísticos</h2>
+<div id="slider">
 
-<div style="display:flex; gap:20px; flex-wrap:wrap;">
 
-  <div style="border:1px solid #ccc; padding:10px; width:200px;">
-    <h3>Ayacucho</h3>
-    <p>Ciudad histórica y cultural</p>
+  <div class="slide-status">
+    <span class="status-num">{{ statusText }}</span>
+    <div class="status-line"></div>
   </div>
 
-  <div style="border:1px solid #ccc; padding:10px; width:200px;">
-    <h3>Cusco</h3>
-    <p>Capital del imperio Inca</p>
+@for (slide of slides; track slide.bg; let i = $index) {
+  <div
+    class="slide"
+    [class.active]="i === currentIndex"
+  >
+    <div class="slide-bg" [style.background-image]="'url(' + slide.bg + ')'"></div>
+    <div class="slide-content">
+      <p class="slide-label">{{ slide.label }}</p>
+      <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+      <p class="slide-desc">{{ slide.desc }}</p>
+    </div>
   </div>
+}
 
-  <div style="border:1px solid #ccc; padding:10px; width:200px;">
-    <h3>Machu Picchu</h3>
-    <p>Maravilla del mundo</p>
-  </div>
+  <button class="arrow" id="prevBtn" aria-label="Anterior" (click)="goTo(currentIndex - 1)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+  </button>
+  <button class="arrow" id="nextBtn" aria-label="Siguiente" (click)="goTo(currentIndex + 1)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polyline points="9 18 15 12 9 6"/>
+    </svg>
+  </button>
 
+<div class="dots">
+  @for (slide of slides; track slide.bg; let i = $index) {
+    <div
+      class="dot"
+      [class.active]="i === currentIndex"
+      (click)="goTo(i)"
+    ></div>
+  }
+</div>
+
+<div class="thumbnails">
+  @for (slide of slides; track slide.bg; let i = $index) {
+    <div
+      class="thumb"
+      [class.active]="i === currentIndex"
+      (click)="goTo(i)"
+    >
+      <div class="thumb-bg" [style.background-image]="'url(' + slide.thumb + ')'"></div>
+      <span class="thumb-name">{{ slide.name }}</span>
+    </div>
+  }
 </div>

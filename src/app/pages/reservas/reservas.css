@@ -1,0 +1,133 @@
+.reservas-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ── CARD ── */
+.form-card, .success-card {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 680px;
+  color: #fff;
+}
+
+/* ── HEADER ── */
+.form-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+.form-icon { font-size: 3rem; }
+.form-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 8px 0 6px;
+}
+.form-header p { color: rgba(255,255,255,0.6); font-size: 14px; }
+
+/* ── GRUPOS ── */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+label {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 6px;
+}
+input, select, textarea {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
+input:focus, select:focus, textarea:focus {
+  border-color: #4fc3f7;
+  background: rgba(255,255,255,0.12);
+}
+select option { background: #1a2a3a; color: #fff; }
+textarea { resize: vertical; }
+
+/* ── ERRORES ── */
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+  border-color: #ff6b6b;
+}
+.error-msg {
+  font-size: 11px;
+  color: #ff8a80;
+  margin-top: 4px;
+}
+
+/* ── BOTÓN ── */
+.btn-primary {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(90deg, #4fc3f7, #0288d1);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: opacity 0.25s, transform 0.2s;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.btn-primary:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* ── SPINNER ── */
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── ÉXITO ── */
+.success-card {
+  text-align: center;
+  padding: 60px 40px;
+}
+.success-icon { font-size: 4rem; margin-bottom: 16px; }
+.success-card h2 { font-size: 1.8rem; margin-bottom: 12px; }
+.success-card p { color: rgba(255,255,255,0.7); margin-bottom: 8px; }
+.success-card .btn-primary { margin-top: 28px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 560px) {
+  .form-row { grid-template-columns: 1fr; }
+  .form-card, .success-card { padding: 28px 20px; }
+}

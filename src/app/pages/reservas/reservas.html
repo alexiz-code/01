@@ -1,11 +1,140 @@
-<h2>✈️ Reserva tu viaje</h2>
+<div class="reservas-wrapper">
 
-<form>
-  <label>Nombre:</label><br>
-  <input type="text"><br><br>
+  <!-- ÉXITO -->
+  @if (enviado) {
+    <div class="success-card">
+      <div class="success-icon">✅</div>
+      <h2>¡Reserva confirmada!</h2>
+      <p>Hemos recibido tu solicitud, <strong>{{ campo('nombre')?.value }}</strong>.</p>
+      <p>Te contactaremos a <strong>{{ campo('email')?.value }}</strong> con los detalles.</p>
+      <button class="btn-primary" (click)="nuevaReserva()">Hacer otra reserva</button>
+    </div>
+  }
 
-  <label>Destino:</label><br>
-  <input type="text"><br><br>
+  <!-- FORMULARIO -->
+  @if (!enviado) {
+    <div class="form-card">
 
-  <button>Reservar</button>
-</form>
+      <div class="form-header">
+        <h1>Reserva tu viaje</h1>
+        <p>Completa los datos y nos ponemos en contacto contigo</p>
+      </div>
+
+      <form [formGroup]="formulario" (ngSubmit)="onSubmit()" novalidate>
+
+        <!-- FILA: Nombre y Apellido -->
+        <div class="form-row">
+          <div class="form-group" [class.error]="invalido('nombre')">
+            <label for="nombre">Nombre *</label>
+            <input id="nombre" type="text" formControlName="nombre" placeholder="Ej: Juan">
+            @if (invalido('nombre')) {
+              <span class="error-msg">Mínimo 3 caracteres</span>
+            }
+          </div>
+
+          <div class="form-group" [class.error]="invalido('apellido')">
+            <label for="apellido">Apellido *</label>
+            <input id="apellido" type="text" formControlName="apellido" placeholder="Ej: García">
+            @if (invalido('apellido')) {
+              <span class="error-msg">Mínimo 3 caracteres</span>
+            }
+          </div>
+        </div>
+
+        <!-- FILA: Email y Teléfono -->
+        <div class="form-row">
+          <div class="form-group" [class.error]="invalido('email')">
+            <label for="email">Correo electrónico *</label>
+            <input id="email" type="email" formControlName="email" placeholder="ejemplo@correo.com">
+            @if (invalido('email')) {
+              <span class="error-msg">Correo no válido</span>
+            }
+          </div>
+
+          <div class="form-group" [class.error]="invalido('telefono')">
+            <label for="telefono">Teléfono *</label>
+            <input id="telefono" type="tel" formControlName="telefono" placeholder="987654321">
+            @if (invalido('telefono')) {
+              <span class="error-msg">Solo números (9–15 dígitos)</span>
+            }
+          </div>
+        </div>
+
+        <!-- DESTINO -->
+        <div class="form-group" [class.error]="invalido('destino')">
+          <label for="destino">Destino *</label>
+          <select id="destino" formControlName="destino">
+            <option value="">— Selecciona un destino —</option>
+            @for (d of destinos; track d.valor) {
+              <option [value]="d.valor"> {{ d.nombre }}</option>
+            }
+          </select>
+          @if (invalido('destino')) {
+            <span class="error-msg">Selecciona un destino</span>
+          }
+        </div>
+
+        <!-- FILA: Fechas -->
+        <div class="form-row">
+          <div class="form-group" [class.error]="invalido('fechaIda')">
+            <label for="fechaIda">Fecha de ida *</label>
+            <input id="fechaIda" type="date" formControlName="fechaIda">
+            @if (invalido('fechaIda')) {
+              <span class="error-msg">Selecciona una fecha</span>
+            }
+          </div>
+
+          <div class="form-group" [class.error]="invalido('fechaVuelta')">
+            <label for="fechaVuelta">Fecha de vuelta *</label>
+            <input id="fechaVuelta" type="date" formControlName="fechaVuelta">
+            @if (invalido('fechaVuelta')) {
+              <span class="error-msg">Selecciona una fecha</span>
+            }
+          </div>
+        </div>
+
+        <!-- FILA: Pasajeros y Clase -->
+        <div class="form-row">
+          <div class="form-group" [class.error]="invalido('pasajeros')">
+            <label for="pasajeros">Pasajeros *</label>
+            <input id="pasajeros" type="number" formControlName="pasajeros" min="1" max="20">
+            @if (invalido('pasajeros')) {
+              <span class="error-msg">Entre 1 y 20 pasajeros</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="clase">Clase *</label>
+            <select id="clase" formControlName="clase">
+              <option value="economica">Económica</option>
+              <option value="ejecutiva">Ejecutiva</option>
+              <option value="primera">Primera clase</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- NOTAS -->
+        <div class="form-group">
+          <label for="notas">Notas adicionales</label>
+          <textarea id="notas" formControlName="notas" rows="3"
+            placeholder="Necesidades especiales, preferencias de asiento..."></textarea>
+        </div>
+
+        <!-- BOTÓN -->
+        <button
+          type="submit"
+          class="btn-primary"
+          [disabled]="cargando"
+        >
+          @if (cargando) {
+            <span class="spinner"></span> Enviando...
+          } @else {
+            ✈️ Confirmar reserva
+          }
+        </button>
+
+      </form>
+    </div>
+  }
+
+</div>
