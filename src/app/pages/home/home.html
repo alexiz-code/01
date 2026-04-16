@@ -1,91 +1,261 @@
-<!-- IMAGEN FINAL CON NOMBRE DE LA EMPRESA -->
-<div class="banner-empresa">
+@if (apiOk === true) {
+  <p class="api-banner ok">Servidor conectado (API lista)</p>
+}
+@if (apiOk === false) {
+  <p class="api-banner warn">Sin conexión al backend (inicia Spring en el puerto 8080)</p>
+}
 
-  <a routerLink="/home">
-    <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg" alt="Turismo G7 Travel">
-  </a>
-
-  <div class="texto-empresa">
-    TURISMO G7 TRAVEL R&H S.A.C
+<div class="hero">
+  <div class="hero-overlay"></div>
+  <img class="hero-img" src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg" alt="Turismo G7 Travel">
+  <div class="hero-content">
+    <span class="hero-badge">✦ Descubre el Perú</span>
+    <h1 class="hero-title">TURISMO G7 TRAVEL</h1>
+    <p class="hero-sub">R&H S.A.C — Ayacucho, Perú</p>
+    <a routerLink="/destinos" class="hero-cta">Explorar Destinos</a>
   </div>
-
+  <div class="hero-scroll">↓</div>
 </div>
 
-<h2 class="titulo">Bienvenido a G7 Travel</h2>
-
-<div class="contenedor">
-
-  <!-- PAMPA DE QUINUA -->
-  <div class="card">
-    <a routerLink="/reservas">
-      <img src="https://www.ytuqueplanes.com/imagenes/fotos/novedades/sierra-pampa-quinua.JPG" alt="Pampa de Quinua">
-    </a>
-    <h3>Pampa de Quinua</h3>
-    <p>Precio: S/ 150</p>
+<section class="seccion-destinos">
+  <div class="seccion-header">
+    <span class="etiqueta">Nuestros Destinos</span>
+    <h2 class="seccion-titulo">Bienvenido a G7 Travel</h2>
+    <p class="seccion-desc">Vive experiencias únicas en los destinos más hermosos del Perú</p>
   </div>
 
-  <!-- MACHU PICCHU -->
-  <div class="card">
-    <a routerLink="/reservas">
-      <img src="https://images.pexels.com/photos/259967/pexels-photo-259967.jpeg" alt="Machu Picchu">
-    </a>
-    <h3>Machu Picchu</h3>
-    <p>Precio: S/ 250</p>
+  <div class="grid-destinos">
+
+    <div class="card-destino card-grande">
+      <a routerLink="/reservas">
+        <img src="https://www.ytuqueplanes.com/imagenes/fotos/novedades/sierra-pampa-quinua.JPG" alt="Pampa de Quinua">
+        <div class="card-info">
+          <span class="card-tag">Ayacucho</span>
+          <h3>Pampa de Quinua</h3>
+          <div class="card-footer">
+            <span class="precio">S/ 150</span>
+            <span class="btn-ver">Reservar →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card-destino">
+      <a routerLink="/reservas">
+        <img src="https://images.pexels.com/photos/259967/pexels-photo-259967.jpeg" alt="Machu Picchu">
+        <div class="card-info">
+          <span class="card-tag">Cusco</span>
+          <h3>Machu Picchu</h3>
+          <div class="card-footer">
+            <span class="precio">S/ 250</span>
+            <span class="btn-ver">Reservar →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card-destino">
+      <a routerLink="/reservas">
+        <img src="https://images.pexels.com/photos/21014/pexels-photo.jpg" alt="Cusco">
+        <div class="card-info">
+          <span class="card-tag">Sur del Perú</span>
+          <h3>Cusco</h3>
+          <div class="card-footer">
+            <span class="precio">S/ 180</span>
+            <span class="btn-ver">Reservar →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card-destino">
+      <a routerLink="/reservas">
+        <img src="https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg" alt="Lago Titicaca">
+        <div class="card-info">
+          <span class="card-tag">Puno</span>
+          <h3>Lago Titicaca</h3>
+          <div class="card-footer">
+            <span class="precio">S/ 200</span>
+            <span class="btn-ver">Reservar →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card-destino">
+      <a routerLink="/reservas">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4qHUBk0VGAdXrmJiwT98ksH9f9KWWm7Sicw&s" alt="Sarhua">
+        <div class="card-info">
+          <span class="card-tag">Ayacucho</span>
+          <h3>Sarhua</h3>
+          <div class="card-footer">
+            <span class="precio">S/ 150</span>
+            <span class="btn-ver">Reservar →</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card-destino card-grande">
+      <a routerLink="/reservas">
+        <img src="https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg" alt="Lago Titicaca">
+        <div class="card-info">
+          <span class="card-tag">Puno</span>
+          <h3>Lago Titicaca</h3>
+          <div class="card-footer">
+            <span class="precio">S/ 200</span>
+            <span class="btn-ver">Reservar →</span>
+          </div>
+        </div>
+      </a>
+
+
+      
+    </div>
+
   </div>
 
-  <!-- CUSCO -->
-  <div class="card">
-    <a routerLink="/reservas">
-      <img src="https://images.pexels.com/photos/21014/pexels-photo.jpg" alt="Cusco">
-    </a>
-    <h3>Cusco</h3>
-    <p>Precio: S/ 180</p>
+    <section class="seccion-grafico">
+      <div class="seccion-header">
+        <span class="etiqueta">Estadísticas</span>
+        <h2 class="seccion-titulo">Destinos más Populares</h2>
+        <p class="seccion-desc">Lugares preferidos por nuestros viajeros este año</p>
+      </div>
+
+      <div class="grafico-contenedor">
+        <div class="grafico-wrapper">
+
+          <div class="eje-y">
+            <span>500</span>
+            <span>400</span>
+            <span>300</span>
+            <span>200</span>
+            <span>100</span>
+            <span>0</span>
+          </div>
+
+          <div class="grafico-area">
+            <div class="lineas-guia">
+              <div class="linea"></div>
+              <div class="linea"></div>
+              <div class="linea"></div>
+              <div class="linea"></div>
+              <div class="linea"></div>
+            </div>
+
+            <div class="barras">
+
+              <div class="barra-grupo">
+                <div class="barra-wrap">
+                  <span class="barra-valor">487</span>
+                  <div class="barra" style="--h: 97%; --color: #c0392b;">
+                    <div class="barra-brillo"></div>
+                  </div>
+                </div>
+                <span class="barra-label">Machu<br>Picchu</span>
+              </div>
+
+              <div class="barra-grupo">
+                <div class="barra-wrap">
+                  <span class="barra-valor">342</span>
+                  <div class="barra" style="--h: 68%; --color: #e74c3c;">
+                    <div class="barra-brillo"></div>
+                  </div>
+                </div>
+                <span class="barra-label">Lago<br>Titicaca</span>
+              </div>
+
+              <div class="barra-grupo">
+                <div class="barra-wrap">
+                  <span class="barra-valor">298</span>
+                  <div class="barra" style="--h: 60%; --color: #922b21;">
+                    <div class="barra-brillo"></div>
+                  </div>
+                </div>
+                <span class="barra-label">Cusco</span>
+              </div>
+
+              <div class="barra-grupo">
+                <div class="barra-wrap">
+                  <span class="barra-valor">215</span>
+                  <div class="barra" style="--h: 43%; --color: #e74c3c;">
+                    <div class="barra-brillo"></div>
+                  </div>
+                </div>
+                <span class="barra-label">Pampa de<br>Quinua</span>
+              </div>
+
+              <div class="barra-grupo">
+                <div class="barra-wrap">
+                  <span class="barra-valor">143</span>
+                  <div class="barra" style="--h: 29%; --color: #c0392b;">
+                    <div class="barra-brillo"></div>
+                  </div>
+                </div>
+                <span class="barra-label">Sarhua</span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="grafico-leyenda">
+          <div class="leyenda-item">
+            <span class="leyenda-dot" style="background:#c0392b;"></span>
+            <span>Más de 400 reservas — Destino estrella</span>
+          </div>
+          <div class="leyenda-item">
+            <span class="leyenda-dot" style="background:#e74c3c;"></span>
+            <span>200–400 reservas — Muy popular</span>
+          </div>
+          <div class="leyenda-item">
+            <span class="leyenda-dot" style="background:#922b21;"></span>
+            <span>Menos de 200 reservas — En crecimiento</span>
+          </div>
+        </div>
+
+        <div class="grafico-podio">
+          <div class="podio-item">
+            <span class="podio-medalla">🥇</span>
+            <span class="podio-lugar">Machu Picchu</span>
+            <span class="podio-num">487 viajeros</span>
+          </div>
+          <div class="podio-item">
+            <span class="podio-medalla">🥈</span>
+            <span class="podio-lugar">Lago Titicaca</span>
+            <span class="podio-num">342 viajeros</span>
+          </div>
+          <div class="podio-item">
+            <span class="podio-medalla">🥉</span>
+            <span class="podio-lugar">Cusco</span>
+            <span class="podio-num">298 viajeros</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+
+
+</section>
+
+<section class="banner-stats">
+  <div class="stat">
+    <span class="stat-num">+500</span>
+    <span class="stat-label">Viajeros felices</span>
   </div>
-
-  <!-- LAGO TITICACA -->
-  <div class="card">
-    <a routerLink="/reservas">
-      <img src="https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg" alt="Lago Titicaca">
-    </a>
-    <h3>Lago Titicaca</h3>
-    <p>Precio: S/ 200</p>
-
+  <div class="stat">
+    <span class="stat-num">12</span>
+    <span class="stat-label">Destinos únicos</span>
   </div>
-  <div class="card">
-    <a routerLink="/reservas">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4qHUBk0VGAdXrmJiwT98ksH9f9KWWm7Sicw&s"
-        alt="Pampa de Quinua">
-    </a>
-    <h3> sarhua</h3>
-    <p>Precio: S/ 150</p>
+  <div class="stat">
+    <span class="stat-num">8</span>
+    <span class="stat-label">Años de experiencia</span>
   </div>
-
-  <!-- MACHU PICCHU -->
-  <div class="card">
-    <a routerLink="/reservas">
-      <img src="https://images.pexels.com/photos/259967/pexels-photo-259967.jpeg" alt="Machu Picchu">
-    </a>
-    <h3>Machu Picchu</h3>
-    <p>Precio: S/ 250</p>
+  <div class="stat">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">Clientes satisfechos</span>
   </div>
-
-  <!-- CUSCO -->
-  <div class="card">
-    <a routerLink="/reservas">
-      <img src="https://images.pexels.com/photos/21014/pexels-photo.jpg" alt="Cusco">
-    </a>
-    <h3>Cusco</h3>
-    <p>Precio: S/ 180</p>
-  </div>
-
-  <!-- LAGO TITICACA -->
-  <div class="card">
-    <a routerLink="/reservas">
-      <img src="https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg" alt="Lago Titicaca">
-    </a>
-    <h3>Lago Titicaca</h3>
-    <p>Precio: S/ 200</p>
-  </div>'
-  '
-
-</div>
+</section>

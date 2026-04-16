@@ -126,6 +126,14 @@ textarea { resize: vertical; }
 .success-card p { color: rgba(255,255,255,0.7); margin-bottom: 8px; }
 .success-card .btn-primary { margin-top: 28px; }
 
+.api-error {
+  color: #ffb4b4;
+  max-width: 680px;
+  margin: 0 auto 16px;
+  text-align: center;
+  font-size: 0.95rem;
+}
+
 /* ── RESPONSIVE ── */
 @media (max-width: 560px) {
   .form-row { grid-template-columns: 1fr; }

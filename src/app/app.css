@@ -1,39 +1,201 @@
-/* NAVBAR */
-.navbar {
-  background: rgb(238, 23, 23);
-  padding: 20px 30px;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap');
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
-  position: relative;
+  justify-content: space-between;
+  padding: 20px 48px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* LOGO A LA IZQUIERDA */
-.logo {
-  position: absolute;
-  left: 20px;
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.97);
+  padding: 12px 48px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
 }
 
-.logo img {
-  width: 50px;
-  height: 50px;
-  object-fit: contain;
-}
-
-/* MENU EN EL CENTRO */
-.menu {
-  margin: 0 auto;
+/* ── LOGO ── */
+.nav-logo {
   display: flex;
-  gap: 40px;
+  align-items: center;
+  gap: 10px;
 }
 
-.menu a {
-  color: white;
+.nav-logo img {
+  height: 42px;
+  width: 42px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.nav-marca {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  transition: color 0.4s;
+}
+
+.navbar.scrolled .nav-marca {
+  color: #1a1a1a;
+}
+
+/* ── MENÚ ── */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.nav-menu a {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
-  font-weight: bold;
-  font-size: 18px;
+  position: relative;
+  transition: color 0.3s;
+  white-space: nowrap;
 }
 
-.menu a:hover {
-  color: #00bcd4;
+.nav-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #c0392b;
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.nav-menu a:hover::after,
+.nav-menu a.activo::after {
+  width: 100%;
+}
+
+.nav-menu a:hover,
+.nav-menu a.activo {
+  color: #fff;
+}
+
+.navbar.scrolled .nav-menu a {
+  color: #444;
+}
+
+.navbar.scrolled .nav-menu a:hover,
+.navbar.scrolled .nav-menu a.activo {
+  color: #c0392b;
+}
+
+/* ── BOTÓN CTA ── */
+.nav-cta {
+  background: #c0392b !important;
+  color: #fff !important;
+  padding: 10px 22px !important;
+  border-radius: 5px !important;
+  font-weight: 500 !important;
+  transition: background 0.25s, transform 0.2s !important;
+}
+
+.nav-cta::after {
+  display: none !important;
+}
+
+.nav-cta:hover {
+  background: #e74c3c !important;
+  transform: translateY(-2px);
+}
+
+/* ── HAMBURGER ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s, background 0.4s;
+}
+
+.navbar.scrolled .hamburger span {
+  background: #1a1a1a;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── CONTAINER ── */
+.container {
+  min-height: 100vh;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .navbar { padding: 16px 20px; }
+  .navbar.scrolled { padding: 12px 20px; }
+  .hamburger { display: flex; }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 300px;
+    height: 100vh;
+    background: #fff;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0;
+    padding: 80px 36px 40px;
+    box-shadow: -4px 0 30px rgba(0,0,0,0.15);
+    transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .nav-menu.open { right: 0; }
+
+  .nav-menu a {
+    color: #333 !important;
+    font-size: 1.1rem;
+    padding: 14px 0;
+    width: 100%;
+    border-bottom: 1px solid #f0eded;
+  }
+
+  .nav-menu a:hover,
+  .nav-menu a.activo {
+    color: #c0392b !important;
+  }
+
+  .nav-cta {
+    margin-top: 16px;
+    text-align: center;
+    width: 100%;
+  }
 }

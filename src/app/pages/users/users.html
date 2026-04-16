@@ -1,0 +1,119 @@
+<div class="users-page">
+
+    <div class="users-header">
+        <div class="header-texto">
+            <span class="etiqueta">Gestión</span>
+            <h1>Usuarios Registrados</h1>
+            <p>Administra los viajeros de G7 Travel</p>
+        </div>
+        <button class="btn-agregar" (click)="abrirNuevo()">
+            <span>+</span> Nuevo Usuario
+        </button>
+    </div>
+
+    <!-- FORMULARIO AGREGAR -->
+    <div class="form-card" [class.visible]="formVisible">
+        <h3>{{ editingId ? 'Editar Usuario' : 'Agregar Usuario' }}</h3>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Nombre completo</label>
+                <input type="text" [(ngModel)]="nuevoUsuario.nombre" placeholder="Ej: Juan Pérez">
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" [(ngModel)]="nuevoUsuario.email" placeholder="correo@ejemplo.com">
+            </div>
+            <div class="form-group">
+                <label>Teléfono</label>
+                <input type="tel" [(ngModel)]="nuevoUsuario.telefono" placeholder="+51 999 999 999">
+            </div>
+            <div class="form-group">
+                <label>Rol</label>
+                <select [(ngModel)]="nuevoUsuario.rol">
+                    <option value="cliente">Cliente</option>
+                    <option value="admin">Administrador</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-acciones">
+            <button class="btn-cancelar" (click)="toggleForm()">Cancelar</button>
+            <button class="btn-guardar" (click)="guardarUsuario()">Guardar</button>
+        </div>
+    </div>
+
+    @if (error) {
+        <p class="api-error" role="alert">{{ error }}</p>
+    }
+    @if (cargando) {
+        <p class="api-loading">Cargando usuarios…</p>
+    }
+
+    <!-- BUSCADOR -->
+    <div class="buscador-wrap">
+        <span class="buscar-icon">🔍</span>
+        <input class="buscador" type="text" [(ngModel)]="busqueda" placeholder="Buscar usuario por nombre o email...">
+    </div>
+
+    <!-- TABLA -->
+    <div class="tabla-wrap">
+        <table class="tabla-usuarios">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Usuario</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Rol</th>
+                    <th>Reservas</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let u of usuariosFiltrados(); let i = index; trackBy: trackById">
+                    <td class="td-num">{{ i + 1 }}</td>
+                    <td class="td-usuario">
+                        <div class="avatar">{{ u.nombre.charAt(0) }}</div>
+                        <span>{{ u.nombre }}</span>
+                    </td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.telefono }}</td>
+                    <td>
+                        <span class="badge" [class.badge-admin]="u.rol === 'admin'"
+                            [class.badge-cliente]="u.rol === 'cliente'">
+                            {{ u.rol }}
+                        </span>
+                    </td>
+                    <td class="td-reservas">{{ u.reservas }}</td>
+                    <td class="td-acciones">
+                        <button type="button" class="btn-editar" title="Editar" (click)="abrirEditar(u)">✏️</button>
+                        <button type="button" class="btn-eliminar" title="Eliminar" (click)="eliminarUsuario(u)">🗑️</button>
+                    </td>
+                </tr>
+                <tr *ngIf="usuariosFiltrados().length === 0">
+                    <td colspan="7" class="td-vacio">No se encontraron usuarios</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- STATS -->
+    <div class="users-stats">
+        <div class="stat-card">
+            <span class="stat-num">{{ usuarios.length }}</span>
+            <span class="stat-label">Total usuarios</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num">{{ totalAdmins() }}</span>
+            <span class="stat-label">Administradores</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num">{{ totalClientes() }}</span>
+            <span class="stat-label">Clientes</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-num">{{ totalReservas() }}</span>
+            <span class="stat-label">Reservas totales</span>
+        </div>
+    </div>
+
+</div>

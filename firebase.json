@@ -1,6 +1,13 @@
 {
-  "hosting": {
-    "public": "src/app/pages/home",
+  "firestore": {
+    "database": "(default)",
+    "location": "nam5",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+"hosting": {
+    "site": "g7-angular-2026",
+    "public": "dist/g7-angular-2026",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -14,3 +21,5 @@
     ]
   }
 }
+
+

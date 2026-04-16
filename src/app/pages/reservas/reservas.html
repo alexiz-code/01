@@ -1,5 +1,9 @@
 <div class="reservas-wrapper">
 
+  @if (errorApi) {
+    <p class="api-error" role="alert">{{ errorApi }}</p>
+  }
+
   <!-- ÉXITO -->
   @if (enviado) {
     <div class="success-card">

@@ -1,19 +1,24 @@
-<nav class="navbar">
-
-  <div class="logo">
+<nav class="navbar" [class.scrolled]="isScrolled">
+  <div class="nav-logo">
     <img src="assets/logo.png" alt="Logotipo G7 Travel">
+    <span class="nav-marca">G7 Travel</span>
   </div>
 
-  <div class="menu">
-    <a routerLink="/home">Inicio</a>
-    <a routerLink="/destinos">Destinos</a>
-    <a routerLink="/reservas">Reservas</a>
-    <a routerLink="/contacto">Contacto</a>
+  <div class="nav-menu" [class.open]="menuOpen">
+    <a routerLink="/home" routerLinkActive="activo" (click)="cerrarMenu()">Inicio</a>
+    <a routerLink="/destinos" routerLinkActive="activo" (click)="cerrarMenu()">Destinos</a>
+    <a routerLink="/reservas" class="nav-cta" (click)="cerrarMenu()">Reservar ahora</a>
+    <a routerLink="/contacto" routerLinkActive="activo" (click)="cerrarMenu()">Contacto</a>
+    <a *ngIf="isAdmin" routerLink="/users" class="activo" (click)="cerrarMenu()">usuarios</a>
   </div>
 
+  <button class="hamburger" (click)="toggleMenu()" [class.open]="menuOpen">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
-<!-- AQUÍ VA EL CONTENIDO DE LAS PÁGINAS -->
 <div class="container">
   <router-outlet></router-outlet>
 </div>

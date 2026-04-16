@@ -1,9 +1,11 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { initializeApp } from 'firebase/app';
 
-import { App } from './app/app';
-import { routes } from './app/app.routes';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app';
+import { environment } from './environments/environment';
 
-bootstrapApplication(App, {
-  providers: [provideRouter(routes)]
-});
+initializeApp(environment.firebase);
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));

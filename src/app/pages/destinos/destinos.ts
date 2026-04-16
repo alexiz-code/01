@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { CommonModule, } from '@angular/common';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { G7ApiService, DestinoDto } from '../../core/g7-api.service';
 
 interface Slide {
   bg: string;
@@ -18,11 +19,15 @@ interface Slide {
   styleUrl: './destinos.css',
 })
 export class Destinos implements OnInit, OnDestroy {
-
   currentIndex = 0;
-  private autoTimer: any;
+  private autoTimer: ReturnType<typeof setInterval> | undefined;
 
-  slides: Slide[] = [
+  slides: Slide[] = [];
+
+  cargando = true;
+  error: string | null = null;
+
+  private readonly fallback: Slide[] = [
     {
       bg: 'https://www.ytuqueplanes.com/imagenes/fotos/novedades/sierra-pampa-quinua.JPG',
       thumb: 'https://www.ytuqueplanes.com/imagenes/fotos/novedades/sierra-pampa-quinua.JPG',
@@ -65,25 +70,59 @@ export class Destinos implements OnInit, OnDestroy {
     }
   ];
 
+  constructor(private readonly api: G7ApiService) {}
+
   ngOnInit(): void {
-    this.resetAuto();
+    this.api.getDestinos().subscribe({
+      next: (list) => {
+        this.slides = list.map((d) => this.mapDestino(d));
+        if (this.slides.length === 0) {
+          this.slides = [...this.fallback];
+        }
+        this.cargando = false;
+        this.resetAuto();
+      },
+      error: () => {
+        this.error = 'No se pudieron cargar los destinos desde el servidor.';
+        this.slides = [...this.fallback];
+        this.cargando = false;
+        this.resetAuto();
+      },
+    });
+  }
+
+  private mapDestino(d: DestinoDto): Slide {
+    const titlePlain = d.title ?? '';
+    const title =
+      titlePlain.includes('<') ? titlePlain : titlePlain.replace(' ', '<br>');
+    return {
+      bg: d.bg,
+      thumb: d.thumb,
+      label: d.label,
+      title,
+      desc: d.desc,
+      name: d.name,
+    };
   }
 
   ngOnDestroy(): void {
-    clearInterval(this.autoTimer);
+    if (this.autoTimer) clearInterval(this.autoTimer);
   }
 
   goTo(index: number): void {
+    if (this.slides.length === 0) return;
     this.currentIndex = (index + this.slides.length) % this.slides.length;
     this.resetAuto();
   }
 
   private resetAuto(): void {
-    clearInterval(this.autoTimer);
+    if (this.autoTimer) clearInterval(this.autoTimer);
+    if (this.slides.length <= 1) return;
     this.autoTimer = setInterval(() => this.goTo(this.currentIndex + 1), 5000);
   }
 
   get statusText(): string {
+    if (this.slides.length === 0) return '00 / 00';
     const cur = String(this.currentIndex + 1).padStart(2, '0');
     const tot = String(this.slides.length).padStart(2, '0');
     return `${cur} / ${tot}`;
