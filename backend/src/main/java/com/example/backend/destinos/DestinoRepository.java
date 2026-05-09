@@ -19,6 +19,11 @@ public class DestinoRepository {
     this.col = db.collection(FirestoreCollections.DESTINOS);
   }
 
+  public List<DestinoEntity> findAll() {
+    QuerySnapshot snap = get(col.get());
+    return snap.getDocuments().stream().map(this::toEntity).toList();
+  }
+
   public List<DestinoEntity> findAllOrderByTitle() {
     QuerySnapshot snap = get(col.orderBy("title").get());
     return snap.getDocuments().stream().map(this::toEntity).toList();

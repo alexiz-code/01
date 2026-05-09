@@ -1,14 +1,13 @@
 package com.example.backend.users;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public record UserUpdateRequest(
-    @NotBlank String nombre,
-    @NotBlank @Email String email,
-    @NotBlank String telefono,
-    @NotNull UserRole rol,
-    @Min(0) int reservas) {}
-
+  @NotBlank String nombre,
+  @NotBlank @Email String email,
+  @NotBlank String telefono,
+  @NotNull UserRole rol,
+  @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres") String password) {}

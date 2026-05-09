@@ -13,7 +13,6 @@ public record ReservaResponse(
     LocalDate fechaIda,
     LocalDate fechaVuelta,
     int pasajeros,
-    String clase,
     String notas,
     Instant createdAt) {
   public static ReservaResponse from(ReservaEntity e) {
@@ -27,7 +26,6 @@ public record ReservaResponse(
         e.getFechaIda(),
         e.getFechaVuelta(),
         e.getPasajeros(),
-        e.getClase(),
         e.getNotas(),
         e.getCreatedAt());
   }

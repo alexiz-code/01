@@ -31,13 +31,8 @@ export class Reservas implements OnInit {
 
   destinos: DestinoOption[] = [];
 
-  private readonly destinosFallback: DestinoOption[] = [
-    { valor: 'pampa de quinua', nombre: 'Pampa de Quinua' },
-    { valor: 'machu picchu', nombre: 'Machu Picchu' },
-    { valor: 'cusco', nombre: 'Cusco' },
-    { valor: 'lago titicaca', nombre: 'Lago Titicaca' },
-    { valor: 'sarhua', nombre: 'Sarhua' },
-  ];
+  // 🚍 ASIENTOS
+  asientos: any[][] = [];
 
   constructor() {
     this.formulario = this.fb.group({
@@ -61,14 +56,53 @@ export class Reservas implements OnInit {
           valor: (d.title ?? d.name ?? '').toLowerCase().trim(),
           nombre: d.title || d.name,
         }));
-        if (this.destinos.length === 0) {
-          this.destinos = [...this.destinosFallback];
-        }
       },
       error: () => {
-        this.destinos = [...this.destinosFallback];
+        this.destinos = [
+          { valor: 'machu picchu', nombre: 'Machu Picchu' },
+          { valor: 'cusco', nombre: 'Cusco' },
+          { valor: 'titicaca', nombre: 'Lago Titicaca' },
+        ];
       },
     });
+
+    this.generarAsientos();
+  }
+
+  // 🚍 ASIENTOS
+  generarAsientos() {
+    let contador = 1;
+
+    this.asientos = Array.from({ length: 5 }, () =>
+      Array.from({ length: 4 }, () => {
+        const ocupado = Math.random() < 0.3;
+
+        return {
+          numero: contador++,
+          ocupado,
+          seleccionado: false,
+        };
+      })
+    );
+  }
+
+  seleccionarAsiento(i: number, j: number) {
+    const asiento = this.asientos[i][j];
+
+    if (asiento.ocupado) return;
+
+    const seleccionados = this.asientos.flat().filter(a => a.seleccionado);
+
+    if (!asiento.seleccionado && seleccionados.length >= this.formulario.value.pasajeros) {
+      return;
+    }
+
+    asiento.seleccionado = !asiento.seleccionado;
+  }
+
+  // ✔ FIX TRACKBY
+  trackByValor(index: number, item: any): string {
+    return item.valor;
   }
 
   campo(nombre: string) {
@@ -87,20 +121,20 @@ export class Reservas implements OnInit {
     }
 
     this.cargando = true;
-    this.errorApi = null;
 
-    const v = this.formulario.getRawValue();
+    const v = this.formulario.value;
+
     const payload: ReservaCreatePayload = {
       nombre: v.nombre,
       apellido: v.apellido,
       email: v.email,
-      telefono: String(v.telefono),
+      telefono: v.telefono,
       destino: v.destino,
       fechaIda: v.fechaIda,
       fechaVuelta: v.fechaVuelta,
-      pasajeros: Number(v.pasajeros),
+      pasajeros: v.pasajeros,
       clase: v.clase,
-      notas: v.notas ?? '',
+      notas: v.notas,
     };
 
     this.api.createReserva(payload).subscribe({
@@ -110,14 +144,14 @@ export class Reservas implements OnInit {
       },
       error: () => {
         this.cargando = false;
-        this.errorApi = 'No se pudo enviar la reserva. Verifica que el backend esté en marcha.';
+        this.errorApi = 'Error al enviar reserva';
       },
     });
   }
 
   nuevaReserva(): void {
     this.enviado = false;
-    this.errorApi = null;
     this.formulario.reset({ pasajeros: 1, clase: 'economica' });
+    this.generarAsientos();
   }
 }

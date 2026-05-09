@@ -16,6 +16,5 @@ public record ReservaCreateRequest(
     @NotNull LocalDate fechaIda,
     @NotNull LocalDate fechaVuelta,
     @Min(1) @Max(20) int pasajeros,
-    @NotBlank String clase,
     String notas) {}
 

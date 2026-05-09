@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   /** Base del backend Spring Boot (Firestore se usa en el servidor) */
-  apiUrl: 'http://localhost:8080/api',
+  apiUrl: 'http://localhost:8081/api',
   firebase: {
     apiKey: 'AIzaSyA-rZN8aXuRZIpIIUc27Wdg7XVD09qkNQY',
     authDomain: 'g7-angular-2026.firebaseapp.com',

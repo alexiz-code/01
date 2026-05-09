@@ -1,16 +1,41 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/Auth.guard';
 
-import { Home } from './pages/home/home';
-import { Destinos } from './pages/destinos/destinos';
-import { Reservas } from './pages/reservas/reservas';
-import { Contacto} from './pages/contacto/contacto';
-import { Users } from './pages/users/users';
 
-export const routes = [
-  { path: '', pathMatch: 'full' as const, redirectTo: 'home' },
-  { path: 'home', component: Home },
-  { path: 'destinos', component: Destinos },
-  { path: 'reservas', component: Reservas },
-  { path: 'contacto', component: Contacto },
-  { path: 'users', component: Users }
+export const routes: Routes = [
+
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login').then(m => m.Login),
+  },
+
+  {
+    path: 'home',
+    loadComponent: () => import('./pages/home/home').then(m => m.Home),
+  },
+
+  {
+    path: 'destinos',
+    loadComponent: () => import('./pages/destinos/destinos').then(m => m.Destinos),
+  },
+
+  {
+    path: 'reservas',
+    loadComponent: () => import('./pages/reservas/reservas').then(m => m.Reservas),
+  },
+
+  {
+    path: 'contacto',
+    loadComponent: () => import('./pages/contacto/contacto').then(m => m.Contacto),
+  },
+
+  {
+    path: 'users',
+    loadComponent: () => import('./pages/users/users').then(m => m.Users),
+    canActivate: [authGuard],
+  },
+
+  { path: '**', redirectTo: 'login' },
 ];

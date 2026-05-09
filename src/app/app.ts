@@ -1,47 +1,40 @@
-import { Component, HostListener, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Auth } from '@angular/fire/auth';
-import { Firestore, doc, getDoc } from '@angular/fire/firestore';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { AuthService } from './core/Auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  styleUrls: ['./app.css'],
 })
 export class AppComponent implements OnInit {
-  isScrolled = false;
-  menuOpen = false;
-  isAdmin = false;
+  private readonly router = inject(Router);
+  private readonly auth   = inject(AuthService);
 
-  constructor(private auth: Auth, private firestore: Firestore) {}
+  scrolled    = false;
+  menuOpen    = false;
+  isLoginRoute = false;
+  isAdminRoute = false;
 
-  async ngOnInit() {
-    this.auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        const ref = doc(this.firestore, 'users', user.uid);
-        const snap = await getDoc(ref);
-        if (snap.exists()) {
-          this.isAdmin = snap.data()['rol'] === 'admin';
-        }
-      } else {
-        this.isAdmin = false;
-      }
+  get isLoggedIn(): boolean { return this.auth.isLoggedIn; }
+
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter(e => e instanceof NavigationEnd)
+    ).subscribe((e: any) => {
+      const url: string = e.urlAfterRedirects ?? e.url;
+      this.isLoginRoute = url.includes('/login');
+      this.isAdminRoute = url.includes('/users');
+      this.menuOpen = false;
     });
   }
 
   @HostListener('window:scroll')
-  onScroll() {
-    this.isScrolled = window.scrollY > 50;
-  }
-
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }
-
-  cerrarMenu() {
-    this.menuOpen = false;
+  onScroll(): void {
+    this.scrolled = window.scrollY > 40;
   }
 }

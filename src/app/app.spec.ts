@@ -4,6 +4,7 @@ import { provideRouter } from '@angular/router';
 
 import { AppComponent } from './app';
 
+
 @Component({ standalone: true, template: '' })
 class RouterStubComponent {}
 

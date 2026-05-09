@@ -1,7 +1,6 @@
 package com.example.backend.users;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -22,55 +21,23 @@ public class UserEntity {
   @NotNull
   private UserRole rol;
 
-  @Min(0)
-  private int reservas;
+  private String passwordHash; // bcrypt hash, nunca se devuelve al frontend
 
-  public String getId() {
-    return id;
-  }
+  public String getId() { return id; }
+  public void setId(String id) { this.id = id; }
 
-  public void setId(String id) {
-    this.id = id;
-  }
+  public String getNombre() { return nombre; }
+  public void setNombre(String nombre) { this.nombre = nombre; }
 
-  public String getNombre() {
-    return nombre;
-  }
+  public String getEmail() { return email; }
+  public void setEmail(String email) { this.email = email; }
 
-  public void setNombre(String nombre) {
-    this.nombre = nombre;
-  }
+  public String getTelefono() { return telefono; }
+  public void setTelefono(String telefono) { this.telefono = telefono; }
 
-  public String getEmail() {
-    return email;
-  }
+  public UserRole getRol() { return rol; }
+  public void setRol(UserRole rol) { this.rol = rol; }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public String getTelefono() {
-    return telefono;
-  }
-
-  public void setTelefono(String telefono) {
-    this.telefono = telefono;
-  }
-
-  public UserRole getRol() {
-    return rol;
-  }
-
-  public void setRol(UserRole rol) {
-    this.rol = rol;
-  }
-
-  public int getReservas() {
-    return reservas;
-  }
-
-  public void setReservas(int reservas) {
-    this.reservas = reservas;
-  }
+  public String getPasswordHash() { return passwordHash; }
+  public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
 }
-

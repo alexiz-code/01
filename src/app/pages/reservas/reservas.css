@@ -1,141 +1,173 @@
 .reservas-wrapper {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 16px;
-  font-family: 'Segoe UI', sans-serif;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
-/* ── CARD ── */
-.form-card, .success-card {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 20px;
-  padding: 40px;
-  width: 100%;
-  max-width: 680px;
-  color: #fff;
+/* ---------------- FORM CARD ---------------- */
+.form-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
-/* ── HEADER ── */
-.form-header {
-  text-align: center;
-  margin-bottom: 36px;
-}
-.form-icon { font-size: 3rem; }
+/* ---------------- HEADER ---------------- */
 .form-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin: 8px 0 6px;
+  margin: 0;
+  font-size: 28px;
+  color: #222;
 }
-.form-header p { color: rgba(255,255,255,0.6); font-size: 14px; }
 
-/* ── GRUPOS ── */
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.form-group {
-  display: flex;
-  flex-direction: column;
+.form-header p {
+  color: #666;
   margin-bottom: 20px;
 }
-label {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  color: rgba(255,255,255,0.75);
-  margin-bottom: 6px;
+
+/* ---------------- INPUTS ---------------- */
+.form-group {
+  margin-bottom: 15px;
 }
+
 input, select, textarea {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
-  border-radius: 10px;
-  padding: 12px 14px;
-  color: #fff;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.25s, background 0.25s;
-}
-input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
-input:focus, select:focus, textarea:focus {
-  border-color: #4fc3f7;
-  background: rgba(255,255,255,0.12);
-}
-select option { background: #1a2a3a; color: #fff; }
-textarea { resize: vertical; }
-
-/* ── ERRORES ── */
-.form-group.error input,
-.form-group.error select,
-.form-group.error textarea {
-  border-color: #ff6b6b;
-}
-.error-msg {
-  font-size: 11px;
-  color: #ff8a80;
-  margin-top: 4px;
-}
-
-/* ── BOTÓN ── */
-.btn-primary {
   width: 100%;
-  padding: 16px;
-  background: linear-gradient(90deg, #4fc3f7, #0288d1);
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  transition: 0.3s;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 3px rgba(74,144,226,0.15);
+}
+
+/* ---------------- BOTÓN ---------------- */
+.btn-primary {
+  background: linear-gradient(135deg, #4a90e2, #2563eb);
+  color: white;
+  padding: 12px 18px;
   border: none;
-  border-radius: 12px;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 700;
+  border-radius: 10px;
   cursor: pointer;
-  letter-spacing: 0.5px;
-  transition: opacity 0.25s, transform 0.2s;
-  margin-top: 8px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37,99,235,0.3);
+}
+
+/* ---------------- SEAT SECTION ---------------- */
+.seat-section {
+  margin-top: 25px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.seat-section h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* ---------------- BUS ---------------- */
+.bus {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* ---------------- FILA ---------------- */
+.fila {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+/* pasillo */
+.pasillo {
+  width: 25px;
+}
+
+/* ---------------- ASIENTOS ---------------- */
+.asiento {
+  width: 45px;
+  height: 45px;
+  background: #22c55e;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
-.btn-primary:hover:not(:disabled) {
+
+.asiento:hover {
+  transform: scale(1.1);
+  background: #16a34a;
+}
+
+/* ocupado */
+.asiento.ocupado {
+  background: #ef4444;
+  cursor: not-allowed;
   opacity: 0.9;
-  transform: translateY(-2px);
-}
-.btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
-
-/* ── SPINNER ── */
-.spinner {
-  width: 18px; height: 18px;
-  border: 2px solid rgba(255,255,255,0.4);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ── ÉXITO ── */
-.success-card {
-  text-align: center;
-  padding: 60px 40px;
-}
-.success-icon { font-size: 4rem; margin-bottom: 16px; }
-.success-card h2 { font-size: 1.8rem; margin-bottom: 12px; }
-.success-card p { color: rgba(255,255,255,0.7); margin-bottom: 8px; }
-.success-card .btn-primary { margin-top: 28px; }
-
-.api-error {
-  color: #ffb4b4;
-  max-width: 680px;
-  margin: 0 auto 16px;
-  text-align: center;
-  font-size: 0.95rem;
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 560px) {
-  .form-row { grid-template-columns: 1fr; }
-  .form-card, .success-card { padding: 28px 20px; }
+.asiento.ocupado:hover {
+  transform: none;
+}
+
+/* seleccionado */
+.asiento.seleccionado {
+  background: #3b82f6;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(59,130,246,0.5);
+}
+
+/* ---------------- LEYENDA ---------------- */
+.leyenda {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  font-size: 14px;
+  color: #444;
+}
+
+.caja {
+  width: 15px;
+  height: 15px;
+  display: inline-block;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+
+.libre { background: #22c55e; }
+.ocupado { background: #ef4444; }
+.seleccionado { background: #3b82f6; }
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.form-card {
+  animation: fadeIn 0.5s ease;
+}
+
+.seat-section {
+  animation: fadeIn 0.5s ease;
 }

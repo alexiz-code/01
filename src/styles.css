@@ -1,4 +1,85 @@
-/* You can add global styles to this file, and also import other style files */
-html {
-    scroll-behavior: smooth;
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+    --g7-red:      #c0392b;
+    --g7-red2:     #e74c3c;
+    --g7-dark:     #1a1a1a;
+    --g7-gray:     #888;
+    --g7-light:    #f9f7f5;
+    --g7-border:   #f0eded;
+    --g7-white:    #ffffff;
+
+
+    --mat-sys-primary: #c0392b;
+    --mat-sys-on-primary: #ffffff;
+    --mat-sys-secondary: #1a1a1a;
+    --mat-sys-surface: #f9f7f5;
+
+    --font-display: 'Playfair Display', serif;
+    --font-body:    'DM Sans', sans-serif;
+}
+
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    height: 100%;
+    font-family: var(--font-body);
+    background: var(--g7-light);
+    color: var(--g7-dark);
+}
+
+
+.mat-mdc-raised-button.mat-primary,
+.mat-mdc-fab.mat-primary,
+.mat-mdc-mini-fab.mat-primary {
+    --mdc-filled-button-container-color: var(--g7-red);
+    --mdc-filled-button-label-text-color: #fff;
+}
+
+.mat-mdc-outlined-button.mat-primary {
+    --mdc-outlined-button-label-text-color: var(--g7-red);
+    --mdc-outlined-button-outline-color: var(--g7-red);
+}
+
+.mat-mdc-form-field.mat-primary {
+    --mdc-filled-text-field-active-indicator-color: var(--g7-red);
+    --mdc-filled-text-field-focus-active-indicator-color: var(--g7-red);
+    --mdc-filled-text-field-focus-label-text-color: var(--g7-red);
+    --mat-form-field-focus-select-arrow-color: var(--g7-red);
+}
+
+.mat-mdc-checkbox.mat-primary {
+    --mdc-checkbox-selected-checkmark-color: #fff;
+    --mdc-checkbox-selected-focus-icon-color: var(--g7-red);
+    --mdc-checkbox-selected-hover-icon-color: var(--g7-red);
+    --mdc-checkbox-selected-icon-color: var(--g7-red);
+    --mdc-checkbox-selected-pressed-icon-color: var(--g7-red);
+}
+
+.mat-primary .mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) .mdc-list-item__primary-text {
+    color: var(--g7-red);
+}
+
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #bbb; }
+
+
+.text-red   { color: var(--g7-red) !important; }
+.text-muted { color: var(--g7-gray) !important; }
+.font-serif { font-family: var(--font-display) !important; }
+
+
+.snack-success .mdc-snackbar__surface {
+    background: #2e7d32 !important;
+}
+.snack-error .mdc-snackbar__surface {
+    background: var(--g7-red) !important;
 }

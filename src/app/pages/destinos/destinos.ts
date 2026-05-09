@@ -28,46 +28,7 @@ export class Destinos implements OnInit, OnDestroy {
   error: string | null = null;
 
   private readonly fallback: Slide[] = [
-    {
-      bg: 'https://www.ytuqueplanes.com/imagenes/fotos/novedades/sierra-pampa-quinua.JPG',
-      thumb: 'https://www.ytuqueplanes.com/imagenes/fotos/novedades/sierra-pampa-quinua.JPG',
-      label: 'histórica',
-      title: 'Pampa de <br>Quinua',
-      desc: 'Ubicada cerca de Ayacucho, es un hermoso paisaje andino de gran valor histórico y natural. Este lugar fue escenario de la Batalla de Ayacucho, un hecho clave para la independencia del Perú y de Sudamérica.',
-      name: 'Historia Viva'
-    },
-    {
-      bg: 'https://images.pexels.com/photos/259967/pexels-photo-259967.jpeg',
-      thumb: 'https://images.pexels.com/photos/259967/pexels-photo-259967.jpeg',
-      label: 'Mística',
-      title: 'Machu <br>Picchu',
-      desc: 'Una antigua ciudad inca rodeada de imponentes montañas y paisajes espectaculares. Considerada una de las maravillas del mundo, combina historia, arquitectura y un entorno natural único que la convierten en uno de los destinos más fascinantes del planeta.',
-      name: 'Maravilla'
-    },
-    {
-      bg: 'https://images.pexels.com/photos/21014/pexels-photo.jpg',
-      thumb: 'https://images.pexels.com/photos/21014/pexels-photo.jpg',
-      label: 'Histórico',
-      title: 'Cusco',
-      desc: 'Una ciudad andina llena de historia, antigua capital del Imperio Inca y punto de partida hacia increíbles destinos culturales.',
-      name: 'Milenario'
-    },
-    {
-      bg: 'https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg',
-      thumb: 'https://images.pexels.com/photos/753626/pexels-photo-753626.jpeg',
-      label: 'Místico',
-      title: 'Lago<br>Titicaca',
-      desc: 'El lago navegable más alto del mundo, rodeado de paisajes únicos y tradiciones ancestrales.',
-      name: 'Sagrado'
-    },
-    {
-      bg: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4qHUBk0VGAdXrmJiwT98ksH9f9KWWm7Sicw&s',
-      thumb: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4qHUBk0VGAdXrmJiwT98ksH9f9KWWm7Sicw&s',
-      label: 'Tradicional',
-      title: 'Sarhua',
-      desc: 'Un pueblo andino conocido por su arte tradicional, especialmente las tablas de Sarhua que narran historias culturales.',
-      name: 'Cultural'
-    }
+
   ];
 
   constructor(private readonly api: G7ApiService) {}

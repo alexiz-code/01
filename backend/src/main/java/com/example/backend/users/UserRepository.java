@@ -7,7 +7,9 @@ import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.cloud.firestore.QuerySnapshot;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
@@ -33,8 +35,7 @@ public class UserRepository {
   }
 
   public boolean existsById(String id) {
-    DocumentSnapshot doc = get(col.document(id).get());
-    return doc.exists();
+    return get(col.document(id).get()).exists();
   }
 
   public Optional<UserEntity> findByEmailIgnoreCase(String email) {
@@ -48,9 +49,8 @@ public class UserRepository {
   }
 
   public UserEntity save(UserEntity e) {
-    if (e.getId() == null || e.getId().isBlank()) {
+    if (e.getId() == null || e.getId().isBlank())
       throw new IllegalArgumentException("id requerido");
-    }
     get(col.document(e.getId()).set(toDoc(e)));
     return e;
   }
@@ -60,9 +60,7 @@ public class UserRepository {
   }
 
   public long count() {
-    QuerySnapshot snap = get(col.limit(1).get());
-    // If there's at least one doc, count is > 0; Firestore count aggregation requires extra API
-    return snap.isEmpty() ? 0 : 1;
+    return get(col.limit(1).get()).isEmpty() ? 0 : 1;
   }
 
   public UserEntity getOrThrow(String id) {
@@ -76,26 +74,21 @@ public class UserRepository {
     e.setEmail(string(d, "email"));
     e.setTelefono(string(d, "telefono"));
     String rol = string(d, "rol");
-    e.setRol(rol == null || rol.isBlank() ? UserRole.cliente : UserRole.valueOf(rol));
-    Long reservas = d.getLong("reservas");
-    e.setReservas(reservas == null ? 0 : reservas.intValue());
+    e.setRol(UserRole.fromString(rol));
+    e.setPasswordHash(string(d, "passwordHash"));
     return e;
   }
 
-  private java.util.Map<String, Object> toDoc(UserEntity e) {
-    return java.util.Map.of(
-        "nombre",
-        e.getNombre(),
-        "email",
-        e.getEmail(),
-        "emailLower",
-        e.getEmail().toLowerCase(),
-        "telefono",
-        e.getTelefono(),
-        "rol",
-        e.getRol().name(),
-        "reservas",
-        e.getReservas());
+  private Map<String, Object> toDoc(UserEntity e) {
+    Map<String, Object> map = new HashMap<>();
+    map.put("nombre",     e.getNombre());
+    map.put("email",      e.getEmail());
+    map.put("emailLower", e.getEmail().toLowerCase());
+    map.put("telefono",   e.getTelefono());
+    map.put("rol",        e.getRol().name());
+    if (e.getPasswordHash() != null)
+      map.put("passwordHash", e.getPasswordHash());
+    return map;
   }
 
   private String string(DocumentSnapshot d, String field) {
@@ -103,4 +96,3 @@ public class UserRepository {
     return v == null ? "" : String.valueOf(v);
   }
 }
-
